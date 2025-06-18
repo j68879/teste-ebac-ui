@@ -1,16 +1,30 @@
 /// <reference types="cypress"/>
+import produtosPage from "../../support/page-objects/produtos.page";
 
 describe('Funcionalidade: Produtos', () => {
 
     beforeEach(() => {
-        cy.visit('produtos')
+        produtosPage.visitarURL()
     });
 
     it('Deve selecionar um produto da lista', () => {
-        cy.get('.products > .row')
-            .contains('Frankie Sweatshirt')
-            .click()
-        cy.get('#tab-title-description > a').should('contain', 'Descrição')
+        produtosPage.buscarProdutoLista('Abominable Hoodie')
+            cy.get('#tab-title-description > a').should('contain', 'Descrição')
+        
+    });
+
+    it.only('Deve buscar um produto com sucesso', () => {
+        let produto = 'Zeppelin Yoga Pant'
+        produtosPage.buscarProduto(produto)
+        cy.get('.product_title').should('contain', produto)
+        
+    });
+
+    it('Deve visitar a pagina do produto', () => {
+        
+    });
+    
+    it('Deve adicionar produto ao carrinho', () => {
         
     });
 });
